@@ -5,6 +5,7 @@ const schema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("production"),
   PORT: z.coerce.number().default(3333),
   HOST: z.string(),
+  DATABASE_URL: z.string(),
 });
 
 const _env = schema.safeParse(process.env);

@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                 String              @id @default(uuid())
+  name               String
+  email              String              @unique
+  password_hash      String
+  profile_pic        String?
+  profile_pic_id     String?
+  email_verified_at  DateTime?
+  account_deleted_at DateTime?
+  created_at         DateTime            @default(now())
+  updated_at         DateTime            @updatedAt
+  bloodGlucoses      BloodGlucose[]
+  insulinDoses       InsulinDose[]
+  personalParameters PersonalParameters?
+  meals              Meal[]
+
+  @@map("users")
+}
+
+model BloodGlucose {
+  id          String   @id @default(uuid())
+  value       Int
+  date        DateTime
+  observation String?
+  user_id     String
+  user        User     @relation(fields: [user_id], references: [id])
+
+  @@map("blood_glucoses")
+}
+
+model InsulinDose {
+  id                    String @id @default(uuid())
+  carbs                 Int
+  current_blood_glucose Int
+  target_blood_glucose  Int
+  sensitivity_factor    Int
+  user_id               String
+  user                  User   @relation(fields: [user_id], references: [id])
+
+  @@map("insulin_doses")
+}
+
+model PersonalParameters {
+  id                   String @id @default(uuid())
+  carbs_insulin_factor Int
+  sensitivity_factor   Int
+  target_blood_glucose Int
+  user_id              String @unique
+  user                 User   @relation(fields: [user_id], references: [id])
+
+  @@map("personal_parameters")
+}
+
+model Meal {
+  id          String @id @default(uuid())
+  description String
+  carbs       Int
+  user_id     String
+  user        User   @relation(fields: [user_id], references: [id])
+
+  @@map("meals")
+}
