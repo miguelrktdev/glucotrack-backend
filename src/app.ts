@@ -1,8 +1,11 @@
+import { routes } from "@/routes/index.ts";
 import { fastify } from "fastify";
 import { StatusCodes } from "http-status-codes";
 import { ZodError } from "zod";
 
 export const app = fastify();
+
+app.register(routes, { prefix: "api" });
 
 app.setErrorHandler((error, _request, reply) => {
   if (error instanceof ZodError) {
