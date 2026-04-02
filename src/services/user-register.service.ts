@@ -1,5 +1,6 @@
 import { UserAlreadyExistsError } from "@/errors/user-already-exists.error.ts";
 import type { User } from "@/generated/prisma/client.ts";
+import type { PrismaUserRepository } from "@/repositories/user.repository.ts";
 import { genSalt, hash } from "bcryptjs";
 
 interface UserRegisterServiceRequest {
@@ -11,7 +12,7 @@ interface UserRegisterServiceRequest {
 type UserRegisterServiceResponse = User;
 
 export class UserRegisterService {
-  constructor(private readonly userRepository: any) {}
+  constructor(private readonly userRepository: PrismaUserRepository) {}
 
   async handle({ name, email, password }: UserRegisterServiceRequest): Promise<UserRegisterServiceResponse> {
     const doesUserExists = await this.userRepository.findByEmail(email);
@@ -28,7 +29,7 @@ export class UserRegisterService {
       email,
       password_hash,
     };
-    const { user } = await this.userRepository.create(payload);
+    const user = await this.userRepository.create(payload);
     return user;
   }
 }
