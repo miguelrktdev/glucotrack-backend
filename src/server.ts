@@ -1,11 +1,9 @@
 import { app } from "@/app.ts";
 import { env } from "@/config/env.ts";
 
-app
-  .listen({
+app.listen({
     port: env.PORT,
     host: env.HOST,
-  })
-  .then(() => {
+}).then(() => {
     console.log("HTTP Server Running 🚀");
-  });
+});

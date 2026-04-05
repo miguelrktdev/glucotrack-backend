@@ -248,18 +248,16 @@ POST /insulin/calculate
 - Valores de glicemia abaixo de 70 mg/dL devem ser considerados hipoglicemia
 - Valores de glicemia acima de 250 mg/dL devem ser considerados hiperglicemia
 - O cálculo da dose de insulina deve seguir a fórmula:
-  ```
-  dose = (carboidratos / fator_insulina_carboidrato) +
-  (glicemia_atual - glicemia_alvo) / fator_sensibilidade
-  ```
+    ```
+    dose = (carboidratos / fator_insulina_carboidrato) +
+    (glicemia_atual - glicemia_alvo) / fator_sensibilidade
+    ```
 - Os parâmetros de cálculo de insulina devem ser configuráveis por usuário
 - O sistema não deve permitir valores negativos para glicemia ou carboidratos
 - Cada registro deve possuir data e hora de criação
 - O sistema deve registrar histórico das medições realizadas pelo usuário
 
 ---
-
-
 
 ## 🧪 Testes (planejado)
 
@@ -282,4 +280,4 @@ Este projeto foi desenvolvido para praticar:
 
 ## 👨‍💻 Autor
 
-Desenvolvido por @migueldev__
+Desenvolvido por @migueldev\_\_
