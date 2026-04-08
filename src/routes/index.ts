@@ -1,4 +1,5 @@
 import type { FastifyInstance } from "fastify";
+import { userRoutes } from "./user.routes.ts";
 
 export const routes = async (app: FastifyInstance) => {
     app.get("/hello", async (_request, reply) => {
@@ -7,4 +8,5 @@ export const routes = async (app: FastifyInstance) => {
             message: "World!!!",
         });
     });
+    app.register(userRoutes, { prefix: "/users" });
 };
